@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_application/Constants/colors.dart';
 
 class LoginBody extends StatefulWidget {
@@ -9,6 +10,11 @@ class LoginBody extends StatefulWidget {
 }
 
 class _LoginBodyState extends State<LoginBody> {
+//-------------------------------------------------------
+  final _formKey = GlobalKey<FormState>();
+  var _name = '';
+//---------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +49,25 @@ class _LoginBodyState extends State<LoginBody> {
                 ),
               ),
               Row(
-                children: [Text('data')],
+                children: [
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          keyboardType: TextInputType.name,
+                          key: ValueKey('name'),
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: new BorderRadius.circular(8.0),
+                                  borderSide: new BorderSide()),
+                              labelText: "Enter Name",
+                              labelStyle: GoogleFonts.roboto()),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
