@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_application/Constants/colors.dart';
+import 'package:todo_application/screens/home_page.dart';
 
 class LoginBody extends StatefulWidget {
   const LoginBody({super.key});
@@ -10,10 +11,6 @@ class LoginBody extends StatefulWidget {
 }
 
 class _LoginBodyState extends State<LoginBody> {
-  //-------------------------------------------------------
-  var _name = '';
-//---------------------------------------------------------
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,10 +72,34 @@ class _LoginBodyState extends State<LoginBody> {
                   ),
                 ],
               ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 145),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const Home()),
+                        );
+                      },
+                      child: Text("Let's Start"),
+                      style:
+                          ElevatedButton.styleFrom(backgroundColor: kTextColor),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
       ),
     );
   }
+}
+
+class Data {
+  String name;
+
+  Data({required this.name});
 }
