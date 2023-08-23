@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_application/Constants/colors.dart';
 
 class LoginBody extends StatefulWidget {
   const LoginBody({super.key});
@@ -25,7 +26,22 @@ class _LoginBodyState extends State<LoginBody> {
                   )
                 ],
               ),
-              Row(),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Make move and list your To Do s in one app , Get Started and make your day success.',
+                        style: TextStyle(
+                          color: Color(0xFF000000),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ),
