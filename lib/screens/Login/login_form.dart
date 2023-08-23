@@ -10,8 +10,7 @@ class LoginBody extends StatefulWidget {
 }
 
 class _LoginBodyState extends State<LoginBody> {
-//-------------------------------------------------------
-  final _formKey = GlobalKey<FormState>();
+  //-------------------------------------------------------
   var _name = '';
 //---------------------------------------------------------
 
@@ -25,10 +24,12 @@ class _LoginBodyState extends State<LoginBody> {
             children: [
               Row(
                 children: [
-                  Image.asset(
-                    'assets/images/login.jpg',
-                    height: 400,
-                    width: 390,
+                  Center(
+                    child: Image.asset(
+                      'assets/images/login.jpg',
+                      height: 400,
+                      width: 385,
+                    ),
                   )
                 ],
               ),
@@ -49,22 +50,27 @@ class _LoginBodyState extends State<LoginBody> {
                 ),
               ),
               Row(
-                children: [
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          keyboardType: TextInputType.name,
-                          key: ValueKey('name'),
-                          decoration: InputDecoration(
+                children: <Widget>[
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Center(
+                        child: Container(
+                          width: 300,
+                          child: TextFormField(
+                            keyboardType: TextInputType.name,
+                            key: ValueKey('name'),
+                            decoration: InputDecoration(
                               border: OutlineInputBorder(
-                                  borderRadius: new BorderRadius.circular(8.0),
-                                  borderSide: new BorderSide()),
+                                borderRadius: new BorderRadius.circular(8.0),
+                                borderSide: new BorderSide(),
+                              ),
                               labelText: "Enter Name",
-                              labelStyle: GoogleFonts.roboto()),
-                        )
-                      ],
+                              labelStyle: GoogleFonts.roboto(),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],
