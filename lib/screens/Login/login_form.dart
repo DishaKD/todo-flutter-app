@@ -10,7 +10,28 @@ class LoginBody extends StatefulWidget {
   State<LoginBody> createState() => _LoginBodyState();
 }
 
+// class Data {
+//   String name;
+//   Data({required this.name});
+// }
+
+// final data = Data(name: );
+
 class _LoginBodyState extends State<LoginBody> {
+  final name = TextEditingController();
+
+  getItemAndNavigate(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Home(
+          nameHolder: name.text,
+          key: null,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,9 +75,8 @@ class _LoginBodyState extends State<LoginBody> {
                       child: Center(
                         child: Container(
                           width: 300,
-                          child: TextFormField(
-                            keyboardType: TextInputType.name,
-                            key: ValueKey('name'),
+                          child: TextField(
+                            controller: name,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: new BorderRadius.circular(8.0),
@@ -77,12 +97,7 @@ class _LoginBodyState extends State<LoginBody> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 145),
                     child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const Home()),
-                        );
-                      },
+                      onPressed: () => getItemAndNavigate(context),
                       child: Text("Let's Start"),
                       style:
                           ElevatedButton.styleFrom(backgroundColor: kTextColor),
@@ -96,10 +111,4 @@ class _LoginBodyState extends State<LoginBody> {
       ),
     );
   }
-}
-
-class Data {
-  String name;
-
-  Data({required this.name});
 }

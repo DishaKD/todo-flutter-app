@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:todo_application/Constants/colors.dart';
+import 'package:todo_application/screens/Login/login_form.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class Home extends StatelessWidget {
+  final nameHolder;
 
-  @override
-  State<Home> createState() => _HomeState();
-}
+  Home({Key? key, @required this.nameHolder}) : super(key: key);
 
-class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kTextColor,
-        title: Text('To Do'),
+        title: Text('Hi ' + nameHolder),
       ),
     );
   }
