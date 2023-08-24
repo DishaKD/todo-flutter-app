@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_application/Constants/colors.dart';
+import 'package:todo_application/screens/to_do_body.dart';
 
 class Home extends StatelessWidget {
   final nameHolder;
@@ -13,6 +14,7 @@ class Home extends StatelessWidget {
         backgroundColor: kAppBarColor,
         title: Text('Hi ' + nameHolder),
       ),
+      body: Body(),
     );
   }
 }

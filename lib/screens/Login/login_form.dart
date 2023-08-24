@@ -10,13 +10,6 @@ class LoginBody extends StatefulWidget {
   State<LoginBody> createState() => _LoginBodyState();
 }
 
-// class Data {
-//   String name;
-//   Data({required this.name});
-// }
-
-// final data = Data(name: );
-
 class _LoginBodyState extends State<LoginBody> {
   final name = TextEditingController();
 
