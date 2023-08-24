@@ -16,7 +16,7 @@ class _LoginState extends State<Login> {
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
-        backgroundColor: kLoginHeader,
+        backgroundColor: kAppBarColor,
         title: const Text(
           'Welcome to To Do',
           style: TextStyle(color: Colors.white),

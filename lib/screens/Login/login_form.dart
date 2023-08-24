@@ -99,8 +99,8 @@ class _LoginBodyState extends State<LoginBody> {
                     child: ElevatedButton(
                       onPressed: () => getItemAndNavigate(context),
                       child: Text("Let's Start"),
-                      style:
-                          ElevatedButton.styleFrom(backgroundColor: kTextColor),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: kAppBarColor),
                     ),
                   ),
                 ],
