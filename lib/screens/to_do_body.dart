@@ -1,26 +1,45 @@
-import 'dart:math';
+import "dart:convert";
+import "dart:math";
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_application/Class/todo.dart';
 import 'package:todo_application/Constants/colors.dart';
 import 'package:todo_application/screens/view_todo.dart';
 
 class Body extends StatefulWidget {
-  const Body({super.key});
+  Body({Key? key}) : super(key: key);
 
   @override
   State<Body> createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
-  List todos = [
-    Todo(id: 1, title: 'First To Do', description: "Test", status: true),
-    Todo(id: 2, title: 'Second To Do', description: "Test", status: false)
-  ];
+  SharedPreferences? prefs;
+  List todos = [];
 
-  @override
+  setupTodo() async {
+    prefs = await SharedPreferences.getInstance();
+    String? stringTodo = prefs?.getString('todo');
+    List todoList = jsonDecode(stringTodo!);
+    for (var todo in todoList) {
+      setState(() {
+        todos.add(todo().fromJson(todo));
+      });
+    }
+  }
+
+  void saveTodo() async {
+    List items = todos.map((e) => e.toJson()).toList();
+    prefs?.setString('todo', jsonEncode(items));
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: kAppBarColor,
+        title: const Text('To Do'),
+      ),
       backgroundColor: Colors.white,
       body: ListView.builder(
           scrollDirection: Axis.vertical,
@@ -28,7 +47,8 @@ class _BodyState extends State<Body> {
           itemBuilder: (BuildContext context, int index) {
             return Card(
               elevation: 8.0,
-              margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+              margin:
+                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
               child: InkWell(
                 onTap: () async {
                   Todo t = await Navigator.push(
@@ -39,6 +59,7 @@ class _BodyState extends State<Body> {
                     setState(() {
                       todos[index] = t;
                     });
+                    saveTodo();
                   }
                 },
                 child: makeListTile(todos[index], index),
@@ -64,7 +85,7 @@ class _BodyState extends State<Body> {
       setState(() {
         todos.add(returnTodo);
       });
-      //saveTodo();
+      saveTodo();
     }
   }
 
@@ -136,6 +157,8 @@ class _BodyState extends State<Body> {
                       setState(() {
                         todos.remove(todo);
                       });
+                      Navigator.pop(ctx);
+                      saveTodo();
                     },
                     child: const Text("Yes"))
               ],
