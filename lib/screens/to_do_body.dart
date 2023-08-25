@@ -1,5 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:todo_application/Class/todo.dart';
+import 'package:todo_application/Constants/colors.dart';
+import 'package:todo_application/screens/view_todo.dart';
 
 class Body extends StatefulWidget {
   const Body({super.key});
@@ -10,76 +14,131 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   List todos = [
-    Todo(id: 1, title: 'First To Do', description: "Test", status: false),
+    Todo(id: 1, title: 'First To Do', description: "Test", status: true),
     Todo(id: 2, title: 'Second To Do', description: "Test", status: false)
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: ListView.builder(
-            scrollDirection: Axis.vertical,
-            itemCount: todos.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Card(
-                elevation: 8.0,
-                margin:
-                    new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-                child: InkWell(
-                  child: makeListTile(todos[index], index),
-                ),
-              );
-            }));
+      backgroundColor: Colors.white,
+      body: ListView.builder(
+          scrollDirection: Axis.vertical,
+          itemCount: todos.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Card(
+              elevation: 8.0,
+              margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+              child: InkWell(
+                onTap: () async {
+                  Todo t = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TodoView(todo: todos[index])));
+                  if (t != null) {
+                    setState(() {
+                      todos[index] = t;
+                    });
+                  }
+                },
+                child: makeListTile(todos[index], index),
+              ),
+            );
+          }),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        backgroundColor: kButtonColor,
+        onPressed: () {
+          addToDo();
+        },
+      ),
+    );
   }
-}
 
-makeListTile(Todo todo, index) {
-  return ListTile(
-      contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-      leading: Container(
-        padding: const EdgeInsets.only(right: 12.0),
-        decoration: const BoxDecoration(
-            border: Border(right: BorderSide(width: 1.0, color: Colors.white))),
-        child: CircleAvatar(
-          backgroundColor: Color(0xFFECEFF1),
-          child: Text(
-            "${index + 1}",
-            style: TextStyle(color: Color(0xFF000000)),
+  addToDo() async {
+    int id = Random().nextInt(30);
+    Todo t = Todo(id: id, title: '', description: '', status: false);
+    Todo returnTodo = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => TodoView(todo: t)));
+    if (returnTodo != null) {
+      setState(() {
+        todos.add(returnTodo);
+      });
+      //saveTodo();
+    }
+  }
+
+  makeListTile(Todo todo, index) {
+    return ListTile(
+        contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        leading: Container(
+          padding: const EdgeInsets.only(right: 12.0),
+          decoration: const BoxDecoration(
+              border:
+                  Border(right: BorderSide(width: 1.0, color: Colors.white))),
+          child: CircleAvatar(
+            backgroundColor: Color(0xFFECEFF1),
+            child: Text(
+              "${index + 1}",
+              style: TextStyle(color: Color(0xFF000000)),
+            ),
           ),
         ),
-      ),
-      title: Row(
-        children: [
-          Text(
-            todo.title,
-            style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          todo.status
-              ? const Icon(
-                  Icons.verified,
-                  color: Colors.greenAccent,
-                )
-              : Container()
-        ],
-      ),
-      // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
+        title: Row(
+          children: [
+            Text(
+              todo.title,
+              style: const TextStyle(
+                  color: Colors.black, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            todo.status
+                ? const Icon(
+                    Icons.verified,
+                    color: Colors.greenAccent,
+                  )
+                : Container()
+          ],
+        ),
+        // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
 
-      subtitle: Wrap(
-        children: <Widget>[
-          Text(todo.description,
-              overflow: TextOverflow.clip,
-              maxLines: 1,
-              style: const TextStyle(color: Colors.black))
-        ],
-      ),
-      trailing: InkWell(
-          onTap: () {
-            // delete(todo);
-          },
-          child: Icon(Icons.remove, color: Colors.black, size: 20.0)));
+        subtitle: Wrap(
+          children: <Widget>[
+            Text(todo.description,
+                overflow: TextOverflow.clip,
+                maxLines: 1,
+                style: const TextStyle(color: Colors.black))
+          ],
+        ),
+        trailing: InkWell(
+            onTap: () {
+              delete(todo);
+            },
+            child: Icon(Icons.remove, color: Colors.black, size: 20.0)));
+  }
+
+  delete(Todo todo) {
+    return showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+              title: const Text("Alert"),
+              content: const Text("Remove To Do"),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(ctx);
+                    },
+                    child: const Text("No")),
+                TextButton(
+                    onPressed: () {
+                      setState(() {
+                        todos.remove(todo);
+                      });
+                    },
+                    child: const Text("Yes"))
+              ],
+            ));
+  }
 }

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 //Declare Todo class attributes
 class Todo {
   int id;
