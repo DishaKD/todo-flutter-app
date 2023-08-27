@@ -16,6 +16,9 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   late SharedPreferences sharedPreferences;
+
+  bool switchValue = false;
+
   List todos = [];
 
   @override
@@ -44,10 +47,10 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kAppBarColor,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         title: const Text('To Do'),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).canvasColor,
       body: ListView.builder(
           scrollDirection: Axis.vertical,
           itemCount: todos.length,
@@ -130,8 +133,6 @@ class _BodyState extends State<Body> {
                 : Container()
           ],
         ),
-        // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
-
         subtitle: Wrap(
           children: <Widget>[
             Text(todo.description,

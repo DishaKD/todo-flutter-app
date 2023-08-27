@@ -1,20 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:todo_application/screens/home_page.dart';
+import 'package:todo_application/screens/to_do_body.dart';
+import 'package:todo_application/Class/theem.dart';
 
 //main
 void main() {
   runApp(const TodoApp());
 }
 
-class TodoApp extends StatelessWidget {
+class TodoApp extends StatefulWidget {
   const TodoApp({super.key});
 
+  @override
+  State<TodoApp> createState() => _TodoAppState();
+}
+
+class _TodoAppState extends State<TodoApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      theme: ThemeClass.lightTheme,
+      darkTheme: ThemeClass.darkTheme,
+      themeMode: ThemeMode.dark,
+      home: Body(),
     ); //MaterialApp
   }
 }

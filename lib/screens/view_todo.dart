@@ -27,11 +27,11 @@ class _TodoViewState extends State<TodoView> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).canvasColor,
       appBar: AppBar(
         centerTitle: true,
         elevation: 10,
-        backgroundColor: kAppBarColor,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         title: const Text("View Your To Do"),
       ),
       body: SingleChildScrollView(
@@ -45,16 +45,17 @@ class _TodoViewState extends State<TodoView> {
                     onChanged: (data) {
                       todo.title = data;
                     },
-                    style: const TextStyle(color: Colors.black),
+                    style: TextStyle(color: Theme.of(context).primaryColor),
                     decoration: InputDecoration(
-                      labelStyle: const TextStyle(color: Colors.black),
+                      labelStyle:
+                          TextStyle(color: Theme.of(context).primaryColor),
                       labelText: "Title",
-                      fillColor: Colors.black,
+                      fillColor: Theme.of(context).primaryColor,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(color: Colors.white),
+                        borderSide: BorderSide(
+                            color: Theme.of(context).primaryColorLight),
                       ),
-                      //fillColor: Colors.green
                     ),
                     controller: titleController,
                   ),
@@ -69,14 +70,15 @@ class _TodoViewState extends State<TodoView> {
                 onChanged: (data) {
                   todo.description = data;
                 },
-                style: const TextStyle(color: Colors.black),
+                style: TextStyle(color: Theme.of(context).primaryColor),
                 decoration: InputDecoration(
-                  labelStyle: const TextStyle(color: Colors.black),
+                  labelStyle: TextStyle(color: Theme.of(context).primaryColor),
                   labelText: "Description",
-                  fillColor: Colors.black,
+                  fillColor: Theme.of(context).primaryColor,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
-                    borderSide: const BorderSide(color: Colors.white),
+                    borderSide:
+                        BorderSide(color: Theme.of(context).primaryColorLight),
                   ),
                   //fillColor: Colors.green
                 ),
@@ -89,7 +91,7 @@ class _TodoViewState extends State<TodoView> {
       bottomNavigationBar: Container(
         height: 55.0,
         child: BottomAppBar(
-          color: kButtonColor,
+          color: Theme.of(context).bottomAppBarTheme.color,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -122,13 +124,14 @@ class _TodoViewState extends State<TodoView> {
                   },
                   child: Text(
                     "${todo.status ? 'To Do Complete' : 'To Do Incomplete'} ",
-                    style: const TextStyle(color: Colors.white),
+                    style: TextStyle(color: Theme.of(context).primaryColor),
                   )),
               const VerticalDivider(
                 color: Colors.white,
               ),
               IconButton(
-                icon: const Icon(Icons.check_circle, color: Colors.white),
+                icon: Icon(Icons.check_circle,
+                    color: Theme.of(context).primaryColor),
                 onPressed: () {
                   Navigator.pop(context, todo);
                 },
@@ -143,8 +146,8 @@ class _TodoViewState extends State<TodoView> {
   Widget colorOverride(Widget child) {
     return Theme(
       data: ThemeData(
-        primaryColor: Colors.black,
-        hintColor: Colors.black,
+        primaryColor: const Color.fromARGB(255, 255, 255, 255),
+        hintColor: const Color.fromARGB(255, 255, 255, 255),
         colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.black),
       ),
       child: child,
