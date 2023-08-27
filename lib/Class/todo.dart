@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 //Declare Todo class attributes
 class Todo {
   int id;
@@ -7,6 +5,7 @@ class Todo {
   String description;
   bool status;
 
+  //Constructor
   Todo(
       {required this.id,
       required this.title,
@@ -18,6 +17,16 @@ class Todo {
     status = this.status;
   }
 
+  //Constructor that convert json to object instance
+  fromJson(jsonData) {
+    return Todo(
+        id: jsonData['id'],
+        title: jsonData['title'],
+        description: jsonData['description'],
+        status: jsonData['status']);
+  }
+
+  // Method to convert object to json string
   toJson() {
     return {
       "id": id,
@@ -25,13 +34,5 @@ class Todo {
       "title": title,
       "status": status
     };
-  }
-
-  fromJson(jsonData) {
-    return Todo(
-        id: jsonData['id'],
-        title: jsonData['title'],
-        description: jsonData['description'],
-        status: jsonData['status']);
   }
 }

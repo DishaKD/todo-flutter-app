@@ -15,23 +15,30 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  SharedPreferences? prefs;
+  late SharedPreferences sharedPreferences;
   List todos = [];
 
-  setupTodo() async {
-    prefs = await SharedPreferences.getInstance();
-    String? stringTodo = prefs?.getString('todo');
-    List todoList = jsonDecode(stringTodo!);
+  @override
+  void initState() {
+    super.initState();
+    initialGetSavedData();
+  }
+
+  void initialGetSavedData() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    String stringTodo = sharedPreferences.getString('todo')!;
+    List todoList = jsonDecode(stringTodo);
     for (var todo in todoList) {
       setState(() {
-        todos.add(todo().fromJson(todo));
+        todos.add(Todo(id: 1, title: '', description: '', status: false)
+            .fromJson(todo));
       });
     }
   }
 
-  void saveTodo() async {
+  void saveTodo() {
     List items = todos.map((e) => e.toJson()).toList();
-    prefs?.setString('todo', jsonEncode(items));
+    sharedPreferences.setString('todo', jsonEncode(items));
   }
 
   Widget build(BuildContext context) {
@@ -84,8 +91,8 @@ class _BodyState extends State<Body> {
     if (returnTodo != null) {
       setState(() {
         todos.add(returnTodo);
+        saveTodo();
       });
-      saveTodo();
     }
   }
 
