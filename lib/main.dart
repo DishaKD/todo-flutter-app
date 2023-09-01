@@ -22,7 +22,7 @@ class _TodoAppState extends State<TodoApp> {
       debugShowCheckedModeBanner: false,
       theme: ThemeClass.lightTheme,
       darkTheme: ThemeClass.darkTheme,
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.system,
       home: Body(),
     ); //MaterialApp
   }
