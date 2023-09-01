@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_application/config/todo.dart';
+import 'package:todo_application/models/todo.dart';
 
 class TodoView extends StatefulWidget {
   Todo todo;
