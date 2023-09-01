@@ -29,12 +29,11 @@ class _BodyState extends State<Body> {
 
   void initialGetSavedData() async {
     sharedPreferences = await SharedPreferences.getInstance();
-    String stringTodo = sharedPreferences.getString('todo')!;
+    String stringTodo = sharedPreferences.getString("todo")!;
     List todoList = jsonDecode(stringTodo);
     for (var todo in todoList) {
       setState(() {
-        todos.add(Todo(id: 1, title: '', description: '', status: false)
-            .fromJson(todo));
+        todos.add(Todo.fromJson(todo));
       });
     }
   }
