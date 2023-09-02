@@ -78,7 +78,6 @@ class _TodoViewState extends State<TodoView> {
                       borderSide: BorderSide(
                           color: Theme.of(context).primaryColorLight),
                     ),
-                    //fillColor: Colors.green
                   ),
                   controller: descriptionController,
                 ),
